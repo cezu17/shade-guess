@@ -540,28 +540,27 @@ export default function App() {
                 />
               </div>
 
-              <div>
+              <div className="text-center">
                 <h1 className="text-4xl font-bold break-words">
                   {targetColor.name}
                 </h1>
               </div>
 
-              <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.75),rgba(2,6,23,0.92))] p-4 shadow-inner">
+              <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.75),rgba(2,6,23,0.92))] p-3 shadow-inner">
                 <div className="mb-4">
-                  <div className="h-1.5 w-20 rounded-full bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-emerald-400 mb-4" />
 
-                  <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
+                  <p className="text-xs uppercase tracking-[0.3em] text-cyan-300 mb-2">
                     Color Picker
                   </p>
 
-                  <p className="text-sm text-slate-400 leading-relaxed">
+                  <p className="text-xs text-slate-400 leading-relaxed">
                     Recreate the target shade as closely as possible.
                   </p>
                 </div>
 
                 <div className="flex justify-center mt-4">
                   <div
-                    className={`scale-[0.82] origin-center transition ${showResult ? "opacity-60 pointer-events-none" : "opacity-100"
+                    className={`scale-[0.72] origin-center transition ${showResult ? "opacity-60 pointer-events-none" : "opacity-100"
                       }`}
                   >
                     <HslColorPicker
@@ -583,21 +582,21 @@ export default function App() {
 
                   <div className="grid grid-cols-3 gap-2 text-center">
                     <div className="rounded-xl bg-slate-950/40 border border-white/10 p-2">
-                      <p className="text-[10px] uppercase tracking-[0.14em] text-slate-400 mb-1">
+                      <p className="text-[9px] uppercase tracking-[0.08em] text-slate-400 mb-1">
                         Hue
                       </p>
                       <p className="text-white text-sm font-semibold">{Math.round(color.h)}°</p>
                     </div>
 
                     <div className="rounded-xl bg-slate-950/40 border border-white/10 p-2">
-                      <p className="text-[10px] uppercase tracking-[0.14em] text-slate-400 mb-1">
+                      <p className="text-[9px] uppercase tracking-[0.08em] text-slate-400 mb-1">
                         Saturation
                       </p>
                       <p className="text-white text-sm font-semibold">{Math.round(color.s)}%</p>
                     </div>
 
                     <div className="rounded-xl bg-slate-950/40 border border-white/10 p-2">
-                      <p className="text-[10px] uppercase tracking-[0.14em] text-slate-400 mb-1">
+                      <p className="text-[9px] uppercase tracking-[0.08em] text-slate-400 mb-1">
                         Lightness
                       </p>
                       <p className="text-white text-sm font-semibold">{Math.round(color.l)}%</p>
