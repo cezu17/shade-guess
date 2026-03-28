@@ -3,6 +3,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { HslColorPicker } from "react-colorful";
 import { COLORS } from "./colors";
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 const TOTAL_ROUNDS = 5;
 
 const STARTER_COLORS = [
@@ -140,7 +142,7 @@ export default function App() {
 
   const fetchLeaderboard = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/scores");
+      const response = await fetch(`${API_URL}/api/scores`);
       const data = await response.json();
       setLeaderboard(data);
     } catch (error) {
@@ -165,7 +167,7 @@ export default function App() {
       setIsSaving(true);
       setSaveMessage("");
 
-      const response = await fetch("http://localhost:5000/api/scores", {
+      const response = await fetch(`${API_URL}/api/scores`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

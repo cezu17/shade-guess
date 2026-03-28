@@ -7,7 +7,14 @@ dotenv.config();
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "http://localhost:5173",
+      "shade-guess.vercel.app",
+    ],
+  })
+);
 app.use(express.json());
 
 app.use("/api/scores", require("./routes/scoreRoutes"));
