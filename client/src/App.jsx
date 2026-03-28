@@ -221,37 +221,39 @@ export default function App() {
               <div className="absolute right-0 top-1/3 h-40 w-40 rounded-full bg-emerald-400/10 blur-3xl" />
 
               <div className="relative z-10">
-                <div className="flex items-center justify-between mb-10">
+                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-10">
                   <button
                     onClick={() => setShowHowItWorks(true)}
-                    className="min-w-[150px] rounded-2xl border border-white/15 bg-white/5 px-5 py-2.5 font-semibold hover:bg-white/10 hover:scale-105 transition duration-300"
+                    className="w-full sm:w-auto min-w-0 sm:min-w-[150px] rounded-2xl border border-white/15 bg-white/5 px-5 py-2.5 font-semibold hover:bg-white/10 transition duration-300"
                   >
                     How It Works
                   </button>
 
-                  <p className="text-sm uppercase tracking-[0.4em] text-cyan-300">
-                     Shade Guesser
+                  <p className="text-xs sm:text-sm uppercase tracking-[0.35em] sm:tracking-[0.4em] text-cyan-300 text-center">
+                    Shade Guess
                   </p>
 
                   <button
                     onClick={handleOpenLeaderboard}
-                    className="min-w-[150px] rounded-2xl border border-white/15 bg-white/5 px-5 py-2.5 font-semibold hover:bg-white/10 hover:scale-105 transition duration-300"
+                    className="w-full sm:w-auto min-w-0 sm:min-w-[150px] rounded-2xl border border-white/15 bg-white/5 px-5 py-2.5 font-semibold hover:bg-white/10 transition duration-300"
                   >
                     Leaderboard
                   </button>
                 </div>
 
-                <h1 className="text-4xl md:text-6xl font-bold leading-tight mb-6 max-w-3xl mx-auto">
-                  Can you guess a color
+                <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold leading-[1.15] mb-6 max-w-3xl mx-auto">
+                  Can you guess a color from
                   <span className="block bg-gradient-to-r from-fuchsia-400 via-cyan-300 to-emerald-300 bg-clip-text text-transparent">
-                    by name alone?
+                    its name alone?
                   </span>
                 </h1>
 
-                <p className="text-slate-300 text-lg md:text-xl leading-8 max-w-2xl mx-auto mb-10">
+                <p className="text-slate-300 text-base sm:text-lg md:text-xl leading-7 sm:leading-8 max-w-2xl mx-auto mb-10">
                   You get a color name and try to match it as closely as possible.
                   <br />
-                  Adjust the color, compare it with the real one, and check your accuracy.
+                  <span className="block mt-1">
+                    Adjust the color, compare it with the real one, and check your accuracy.
+                  </span>
                 </p>
 
 
@@ -271,7 +273,7 @@ export default function App() {
       )}
 
       {screen === "game" && (
-        <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#1e293b,_#0f172a_55%)] text-white px-4 md:px-6 py-4 md:py-6 flex items-center justify-center">
+        <div className="min-h-screen bg-[radial-gradient(circle_at_top,_#1e293b,_#0f172a_55%)] text-white px-3 sm:px-4 md:px-6 py-3 sm:py-4 md:py-6 flex items-center justify-center">
           <motion.div
             initial={{ opacity: 0, y: 25 }}
             animate={{ opacity: 1, y: 0 }}
@@ -315,7 +317,7 @@ export default function App() {
                     Current Values
                   </p>
 
-                  <div className="grid grid-cols-3 gap-3 text-center">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-center">
                     <div className="rounded-xl bg-slate-950/40 border border-white/10 p-3">
                       <p className="min-h-[32px] flex items-center justify-center text-[11px] uppercase tracking-[0.14em] text-slate-400 leading-tight mb-1">
                         Hue
@@ -350,7 +352,7 @@ export default function App() {
               </div>
 
               <div className="flex flex-col">
-                <div className="flex items-start justify-between gap-4 mb-4">
+              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
                   <div>
                     <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
                       Round {round} / {TOTAL_ROUNDS}
@@ -460,7 +462,7 @@ export default function App() {
                             </div>
                           </div>
 
-                          <div className="grid grid-cols-3 gap-3 mb-4">
+                          <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-4">
                             <div className="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">
                               <p className="text-xs uppercase tracking-[0.18em] text-slate-400 mb-2">
                                 Hue
