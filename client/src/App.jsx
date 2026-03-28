@@ -716,223 +716,226 @@ export default function App() {
                 </div>
               )}
             </div>
+          </motion.div>
+        </div>
+      )}
 
-            {screen === "end" && (
-              <div className="min-h-screen flex items-center justify-center bg-[radial-gradient(circle_at_top,_#1e293b,_#0f172a_60%)] text-white px-6">
-                <motion.div
-                  initial={{ opacity: 0, y: 25 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="w-full max-w-xl rounded-[32px] border border-white/10 bg-white/10 backdrop-blur-xl shadow-2xl p-10 text-center"
-                >
-                  <p className="text-sm uppercase tracking-[0.35em] text-cyan-300 mb-4">
-                    Game Complete
-                  </p>
+      {screen === "end" && (
+        <div className="min-h-screen flex items-center justify-center bg-[radial-gradient(circle_at_top,_#1e293b,_#0f172a_60%)] text-white px-6">
+          <motion.div
+            initial={{ opacity: 0, y: 25 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="w-full max-w-xl rounded-[32px] border border-white/10 bg-white/10 backdrop-blur-xl shadow-2xl p-10 text-center"
+          >
+            <p className="text-sm uppercase tracking-[0.35em] text-cyan-300 mb-4">
+              Game Complete
+            </p>
 
-                  <h1 className="text-5xl font-bold mb-4">Final Score</h1>
+            <h1 className="text-5xl font-bold mb-4">Final Score</h1>
 
-                  <div className="text-6xl font-bold bg-gradient-to-r from-fuchsia-400 via-cyan-300 to-emerald-300 bg-clip-text text-transparent mb-8">
-                    {score}
-                  </div>
+            <div className="text-6xl font-bold bg-gradient-to-r from-fuchsia-400 via-cyan-300 to-emerald-300 bg-clip-text text-transparent mb-8">
+              {score}
+            </div>
 
-                  <p className="text-xl text-slate-300 mt-4 font-semibold">
-                    {getFinalRank(score)}
-                  </p>
+            <p className="text-xl text-slate-300 mt-4 font-semibold">
+              {getFinalRank(score)}
+            </p>
 
-                  <p className="text-slate-300 mb-8">
-                    You scored {score} out of {TOTAL_ROUNDS * 100}.
-                  </p>
+            <p className="text-slate-300 mb-8">
+              You scored {score} out of {TOTAL_ROUNDS * 100}.
+            </p>
 
-                  <div className="mb-6 space-y-4">
-                    <input
-                      type="text"
-                      placeholder="Enter your nickname"
-                      value={username}
-                      onChange={(e) => setUsername(e.target.value)}
-                      className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none"
-                    />
+            <div className="mb-6 space-y-4">
+              <input
+                type="text"
+                placeholder="Enter your nickname"
+                value={username}
+                onChange={(e) => setUsername(e.target.value)}
+                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none"
+              />
 
-                    <button
-                      onClick={handleSaveScore}
-                      disabled={isSaving || scoreSaved}
-                      className="w-full rounded-2xl bg-gradient-to-r from-fuchsia-500 via-cyan-500 to-emerald-400 py-3 font-semibold text-slate-950 hover:scale-[1.02] transition duration-300 disabled:opacity-50"
+              <button
+                onClick={handleSaveScore}
+                disabled={isSaving || scoreSaved}
+                className="w-full rounded-2xl bg-gradient-to-r from-fuchsia-500 via-cyan-500 to-emerald-400 py-3 font-semibold text-slate-950 hover:scale-[1.02] transition duration-300 disabled:opacity-50"
+              >
+                {scoreSaved ? "Score Saved" : isSaving ? "Saving..." : "Save Score"}
+              </button>
+
+              {saveMessage && (
+                <p className="text-sm text-slate-300">{saveMessage}</p>
+              )}
+            </div>
+
+            <div className="mt-8 text-left">
+              <h2 className="text-2xl font-bold mb-4 text-center">Leaderboard</h2>
+
+              <div className="space-y-3">
+                {leaderboard.length === 0 ? (
+                  <p className="text-slate-300 text-center">No scores yet.</p>
+                ) : (
+                  leaderboard.map((item, index) => (
+                    <div
+                      key={item._id}
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 flex items-center justify-between"
                     >
-                      {scoreSaved ? "Score Saved" : isSaving ? "Saving..." : "Save Score"}
-                    </button>
+                      <div>
+                        <p className="font-semibold text-white">
+                          {getMedal(index)} {item.username}
+                        </p>
+                        <p className="text-sm text-slate-400">
+                          {new Date(item.createdAt).toLocaleDateString()}
+                        </p>
+                      </div>
 
-                    {saveMessage && (
-                      <p className="text-sm text-slate-300">{saveMessage}</p>
-                    )}
-                  </div>
-
-                  <div className="mt-8 text-left">
-                    <h2 className="text-2xl font-bold mb-4 text-center">Leaderboard</h2>
-
-                    <div className="space-y-3">
-                      {leaderboard.length === 0 ? (
-                        <p className="text-slate-300 text-center">No scores yet.</p>
-                      ) : (
-                        leaderboard.map((item, index) => (
-                          <div
-                            key={item._id}
-                            className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 flex items-center justify-between"
-                          >
-                            <div>
-                              <p className="font-semibold text-white">
-                                {getMedal(index)} {item.username}
-                              </p>
-                              <p className="text-sm text-slate-400">
-                                {new Date(item.createdAt).toLocaleDateString()}
-                              </p>
-                            </div>
-
-                            <p className="text-xl font-bold text-white">{item.totalScore}</p>
-                          </div>
-                        ))
-                      )}
+                      <p className="text-xl font-bold text-white">{item.totalScore}</p>
                     </div>
-                  </div>
-
-                  <button
-                    onClick={handleStartGame}
-                    className="mt-8 rounded-2xl bg-white text-slate-900 px-6 py-3 font-semibold hover:scale-105 transition duration-300"
-                  >
-                    Play Again
-                  </button>
-                </motion.div>
+                  ))
+                )}
               </div>
-            )}
+            </div>
 
-            <AnimatePresence>
-              {showHowItWorks && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center px-4"
+            <button
+              onClick={handleStartGame}
+              className="mt-8 rounded-2xl bg-white text-slate-900 px-6 py-3 font-semibold hover:scale-105 transition duration-300"
+            >
+              Play Again
+            </button>
+          </motion.div>
+        </div>
+      )}
+
+      <AnimatePresence>
+        {showHowItWorks && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center px-4"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.96 }}
+              transition={{ duration: 0.2 }}
+              className="w-full max-w-2xl rounded-[28px] border border-white/10 bg-slate-900/95 text-white shadow-2xl p-6 md:p-8"
+            >
+              <div className="flex items-start justify-between gap-4 mb-6">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
+                    Guide
+                  </p>
+                  <h2 className="text-3xl font-bold">How It Works</h2>
+                </div>
+
+                <button
+                  onClick={() => setShowHowItWorks(false)}
+                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 font-semibold hover:bg-white/10 transition"
                 >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 20, scale: 0.96 }}
-                    transition={{ duration: 0.2 }}
-                    className="w-full max-w-2xl rounded-[28px] border border-white/10 bg-slate-900/95 text-white shadow-2xl p-6 md:p-8"
-                  >
-                    <div className="flex items-start justify-between gap-4 mb-6">
-                      <div>
-                        <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
-                          Guide
-                        </p>
-                        <h2 className="text-3xl font-bold">How It Works</h2>
-                      </div>
+                  Close
+                </button>
+              </div>
 
-                      <button
-                        onClick={() => setShowHowItWorks(false)}
-                        className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 font-semibold hover:bg-white/10 transition"
-                      >
-                        Close
-                      </button>
-                    </div>
+              <div className="space-y-4 text-slate-300 leading-7">
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p className="font-semibold text-white mb-2">1. Read the color name</p>
+                  <p>
+                    Each round gives you a hidden target shade by name, like
+                    <span className="text-white font-medium"> Green Gold </span>
+                    or another niche color.
+                  </p>
+                </div>
 
-                    <div className="space-y-4 text-slate-300 leading-7">
-                      <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                        <p className="font-semibold text-white mb-2">1. Read the color name</p>
-                        <p>
-                          Each round gives you a hidden target shade by name, like
-                          <span className="text-white font-medium"> Green Gold </span>
-                          or another niche color.
-                        </p>
-                      </div>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p className="font-semibold text-white mb-2">2. Recreate it</p>
+                  <p>
+                    Use the color picker to adjust
+                    <span className="text-white font-medium"> hue</span>,
+                    <span className="text-white font-medium"> saturation</span>, and
+                    <span className="text-white font-medium"> lightness </span>
+                    until your guess feels right.
+                  </p>
+                </div>
 
-                      <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                        <p className="font-semibold text-white mb-2">2. Recreate it</p>
-                        <p>
-                          Use the color picker to adjust
-                          <span className="text-white font-medium"> hue</span>,
-                          <span className="text-white font-medium"> saturation</span>, and
-                          <span className="text-white font-medium"> lightness </span>
-                          until your guess feels right.
-                        </p>
-                      </div>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p className="font-semibold text-white mb-2">3. Submit your guess</p>
+                  <p>
+                    After you submit, the real shade is revealed and you get a round
+                    score based on how close your guess was.
+                  </p>
+                </div>
 
-                      <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                        <p className="font-semibold text-white mb-2">3. Submit your guess</p>
-                        <p>
-                          After you submit, the real shade is revealed and you get a round
-                          score based on how close your guess was.
-                        </p>
-                      </div>
+                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p className="font-semibold text-white mb-2">4. Finish 5 rounds</p>
+                  <p>
+                    Complete all rounds, check your final score, and save your result
+                    to the leaderboard.
+                  </p>
+                </div>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-                      <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                        <p className="font-semibold text-white mb-2">4. Finish 5 rounds</p>
-                        <p>
-                          Complete all rounds, check your final score, and save your result
-                          to the leaderboard.
-                        </p>
-                      </div>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              )}
-            </AnimatePresence>
+      <AnimatePresence>
+        {showLeaderboard && (
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center px-4"
+          >
+            <motion.div
+              initial={{ opacity: 0, y: 20, scale: 0.96 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: 20, scale: 0.96 }}
+              transition={{ duration: 0.2 }}
+              className="w-full max-w-2xl rounded-[28px] border border-white/10 bg-slate-900/95 text-white shadow-2xl p-6 md:p-8"
+            >
+              <div className="flex items-start justify-between gap-4 mb-6">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
+                    Rankings
+                  </p>
+                  <h2 className="text-3xl font-bold">Leaderboard</h2>
+                </div>
 
-            <AnimatePresence>
-              {showLeaderboard && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center px-4"
+                <button
+                  onClick={() => setShowLeaderboard(false)}
+                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 font-semibold hover:bg-white/10 transition"
                 >
-                  <motion.div
-                    initial={{ opacity: 0, y: 20, scale: 0.96 }}
-                    animate={{ opacity: 1, y: 0, scale: 1 }}
-                    exit={{ opacity: 0, y: 20, scale: 0.96 }}
-                    transition={{ duration: 0.2 }}
-                    className="w-full max-w-2xl rounded-[28px] border border-white/10 bg-slate-900/95 text-white shadow-2xl p-6 md:p-8"
-                  >
-                    <div className="flex items-start justify-between gap-4 mb-6">
+                  Close
+                </button>
+              </div>
+
+              <div className="space-y-3 max-h-[420px] overflow-y-auto pr-1">
+                {leaderboard.length === 0 ? (
+                  <p className="text-slate-300 text-center py-6">No scores yet.</p>
+                ) : (
+                  leaderboard.map((item, index) => (
+                    <div
+                      key={item._id}
+                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 flex items-center justify-between"
+                    >
                       <div>
-                        <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
-                          Rankings
+                        <p className="font-semibold text-white">
+                          {getMedal(index)} {item.username}
                         </p>
-                        <h2 className="text-3xl font-bold">Leaderboard</h2>
+                        <p className="text-sm text-slate-400">
+                          {new Date(item.createdAt).toLocaleString()}
+                        </p>
                       </div>
 
-                      <button
-                        onClick={() => setShowLeaderboard(false)}
-                        className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 font-semibold hover:bg-white/10 transition"
-                      >
-                        Close
-                      </button>
+                      <p className="text-xl font-bold text-white">{item.totalScore}</p>
                     </div>
-
-                    <div className="space-y-3 max-h-[420px] overflow-y-auto pr-1">
-                      {leaderboard.length === 0 ? (
-                        <p className="text-slate-300 text-center py-6">No scores yet.</p>
-                      ) : (
-                        leaderboard.map((item, index) => (
-                          <div
-                            key={item._id}
-                            className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 flex items-center justify-between"
-                          >
-                            <div>
-                              <p className="font-semibold text-white">
-                                {getMedal(index)} {item.username}
-                              </p>
-                              <p className="text-sm text-slate-400">
-                                {new Date(item.createdAt).toLocaleString()}
-                              </p>
-                            </div>
-
-                            <p className="text-xl font-bold text-white">{item.totalScore}</p>
-                          </div>
-                        ))
-                      )}
-                    </div>
-                  </motion.div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </>
-          );
+                  ))
+                )}
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </>
+  );
 }
