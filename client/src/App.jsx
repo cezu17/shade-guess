@@ -221,24 +221,48 @@ export default function App() {
               <div className="absolute right-0 top-1/3 h-40 w-40 rounded-full bg-emerald-400/10 blur-3xl" />
 
               <div className="relative z-10">
-                <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between mb-10">
-                  <button
-                    onClick={() => setShowHowItWorks(true)}
-                    className="w-full sm:w-auto min-w-0 sm:min-w-[150px] rounded-2xl border border-white/15 bg-white/5 px-5 py-2.5 font-semibold hover:bg-white/10 transition duration-300"
-                  >
-                    How It Works
-                  </button>
+                <div className="mb-10">
+                  <div className="hidden md:flex items-center justify-between">
+                    <button
+                      onClick={() => setShowHowItWorks(true)}
+                      className="min-w-[150px] rounded-2xl border border-white/15 bg-white/5 px-5 py-2.5 font-semibold hover:bg-white/10 transition duration-300"
+                    >
+                      How It Works
+                    </button>
 
-                  <p className="text-xs sm:text-sm uppercase tracking-[0.35em] sm:tracking-[0.4em] text-cyan-300 text-center">
-                    Shade Guess
-                  </p>
+                    <p className="text-sm uppercase tracking-[0.4em] text-cyan-300 text-center">
+                      Shade Guess
+                    </p>
 
-                  <button
-                    onClick={handleOpenLeaderboard}
-                    className="w-full sm:w-auto min-w-0 sm:min-w-[150px] rounded-2xl border border-white/15 bg-white/5 px-5 py-2.5 font-semibold hover:bg-white/10 transition duration-300"
-                  >
-                    Leaderboard
-                  </button>
+                    <button
+                      onClick={handleOpenLeaderboard}
+                      className="min-w-[150px] rounded-2xl border border-white/15 bg-white/5 px-5 py-2.5 font-semibold hover:bg-white/10 transition duration-300"
+                    >
+                      Leaderboard
+                    </button>
+                  </div>
+
+                  <div className="md:hidden text-center">
+                    <p className="text-xs uppercase tracking-[0.4em] text-cyan-300 mb-4">
+                      Shade Guess
+                    </p>
+
+                    <div className="flex items-center justify-between max-w-[260px] mx-auto">
+                      <button
+                        onClick={() => setShowHowItWorks(true)}
+                        className="text-xs px-3 py-1.5 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 transition"
+                      >
+                        How It Works
+                      </button>
+
+                      <button
+                        onClick={handleOpenLeaderboard}
+                        className="text-xs px-3 py-1.5 rounded-xl border border-white/15 bg-white/5 hover:bg-white/10 transition"
+                      >
+                        Leaderboard
+                      </button>
+                    </div>
+                  </div>
                 </div>
 
                 <h1 className="text-3xl sm:text-4xl md:text-6xl font-bold leading-[1.15] mb-6 max-w-3xl mx-auto">
@@ -549,11 +573,11 @@ export default function App() {
               <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.75),rgba(2,6,23,0.92))] p-3 shadow-inner">
                 <div className="mb-4">
 
-                  <p className="text-xs uppercase tracking-[0.3em] text-cyan-300 mb-2">
+                  <p className="text-xs uppercase tracking-[0.3em] text-cyan-300 mb-2 text-center">
                     Color Picker
                   </p>
 
-                  <p className="text-xs text-slate-400 leading-relaxed">
+                  <p className="text-xs text-slate-400 leading-relaxed text-center">
                     Recreate the target shade as closely as possible.
                   </p>
                 </div>
@@ -576,7 +600,7 @@ export default function App() {
                 </div>
 
                 <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-3">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400 mb-3">
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400 mb-3 text-center">
                     Current Values
                   </p>
 
@@ -607,7 +631,7 @@ export default function App() {
 
               <div className="grid grid-cols-2 gap-3">
                 <div className="rounded-[22px] bg-white/5 border border-white/10 p-3">
-                  <p className="text-slate-400 text-sm mb-2">Your Guess</p>
+                  <p className="text-slate-400 text-sm mb-2 text-center">Your Guess</p>
                   <div
                     className="h-28 rounded-2xl border border-white/10 transition-all duration-300"
                     style={{
@@ -618,7 +642,7 @@ export default function App() {
                 </div>
 
                 <div className="rounded-[22px] bg-white/5 border border-white/10 p-3">
-                  <p className="text-slate-400 text-sm mb-2">Actual Shade</p>
+                  <p className="text-slate-400 text-sm mb-2 text-center">Actual Shade</p>
                   <div
                     className="h-28 rounded-2xl border border-white/10 flex items-center justify-center text-slate-400 text-xl"
                     style={{
