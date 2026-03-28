@@ -243,7 +243,7 @@ export default function App() {
                   </div>
 
                   <div className="md:hidden text-center">
-                    <p className="text-xs uppercase tracking-[0.4em] text-cyan-300 mb-4">
+                    <p className="text-sm uppercase tracking-[0.4em] text-cyan-300 mb-4">
                       Shade Guess
                     </p>
 
@@ -570,7 +570,7 @@ export default function App() {
                 </h1>
               </div>
 
-              <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.75),rgba(2,6,23,0.92))] p-3 shadow-inner">
+              <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.75),rgba(2,6,23,0.92))] p-2.5 shadow-inner">
                 <div className="mb-4">
 
                   <p className="text-xs uppercase tracking-[0.3em] text-cyan-300 mb-2 text-center">
@@ -582,9 +582,9 @@ export default function App() {
                   </p>
                 </div>
 
-                <div className="flex justify-center mt-4">
+                <div className="flex justify-center mt-2">
                   <div
-                    className={`scale-[0.72] origin-center transition ${showResult ? "opacity-60 pointer-events-none" : "opacity-100"
+                    className={`scale-[0.68] origin-center transition ${showResult ? "opacity-60 pointer-events-none" : "opacity-100"
                       }`}
                   >
                     <HslColorPicker
@@ -599,7 +599,7 @@ export default function App() {
                   </div>
                 </div>
 
-                <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-3">
+                <div className="mt-3 rounded-2xl border border-white/10 bg-white/5 p-3">
                   <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400 mb-3 text-center">
                     Current Values
                   </p>
