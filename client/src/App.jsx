@@ -526,23 +526,11 @@ export default function App() {
             </div>
 
             <div className="md:hidden space-y-4">
-              <div className="flex flex-col gap-4">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
-                    Round {round} / {TOTAL_ROUNDS}
-                  </p>
-                  <h1 className="text-4xl font-bold break-words">
-                    {targetColor.name}
-                  </h1>
-                  <p className="text-slate-300 mt-2 text-lg">Score: {score}</p>
-                </div>
-
-                <button
-                  onClick={() => setScreen("home")}
-                  className="w-full rounded-2xl border border-white/15 bg-white/5 px-4 py-3 font-semibold hover:bg-white/10 transition"
-                >
-                  Back
-                </button>
+              <div className="flex items-center justify-between">
+                <p className="text-sm uppercase tracking-[0.3em] text-cyan-300">
+                  Round {round} / {TOTAL_ROUNDS}
+                </p>
+                <p className="text-sm text-slate-300 font-medium">Score: {score}</p>
               </div>
 
               <div className="w-full h-2.5 rounded-full bg-white/10 overflow-hidden">
@@ -552,11 +540,77 @@ export default function App() {
                 />
               </div>
 
-              <div className="grid grid-cols-1 gap-4">
-                <div className="rounded-[22px] bg-white/5 border border-white/10 p-4">
+              <div>
+                <h1 className="text-4xl font-bold break-words">
+                  {targetColor.name}
+                </h1>
+              </div>
+
+              <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.75),rgba(2,6,23,0.92))] p-4 shadow-inner">
+                <div className="mb-4">
+                  <div className="h-1.5 w-20 rounded-full bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-emerald-400 mb-4" />
+
+                  <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
+                    Color Picker
+                  </p>
+
+                  <p className="text-sm text-slate-400 leading-relaxed">
+                    Recreate the target shade as closely as possible.
+                  </p>
+                </div>
+
+                <div className="flex justify-center mt-4">
+                  <div
+                    className={`scale-[0.82] origin-center transition ${showResult ? "opacity-60 pointer-events-none" : "opacity-100"
+                      }`}
+                  >
+                    <HslColorPicker
+                      color={color}
+                      onChange={(newColor) => {
+                        if (showResult) return;
+                        setColor(newColor);
+                        setShowResult(false);
+                        setResult(null);
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-4 rounded-2xl border border-white/10 bg-white/5 p-3">
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400 mb-3">
+                    Current Values
+                  </p>
+
+                  <div className="grid grid-cols-3 gap-2 text-center">
+                    <div className="rounded-xl bg-slate-950/40 border border-white/10 p-2">
+                      <p className="text-[10px] uppercase tracking-[0.14em] text-slate-400 mb-1">
+                        Hue
+                      </p>
+                      <p className="text-white text-sm font-semibold">{Math.round(color.h)}°</p>
+                    </div>
+
+                    <div className="rounded-xl bg-slate-950/40 border border-white/10 p-2">
+                      <p className="text-[10px] uppercase tracking-[0.14em] text-slate-400 mb-1">
+                        Saturation
+                      </p>
+                      <p className="text-white text-sm font-semibold">{Math.round(color.s)}%</p>
+                    </div>
+
+                    <div className="rounded-xl bg-slate-950/40 border border-white/10 p-2">
+                      <p className="text-[10px] uppercase tracking-[0.14em] text-slate-400 mb-1">
+                        Lightness
+                      </p>
+                      <p className="text-white text-sm font-semibold">{Math.round(color.l)}%</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-2 gap-3">
+                <div className="rounded-[22px] bg-white/5 border border-white/10 p-3">
                   <p className="text-slate-400 text-sm mb-2">Your Guess</p>
                   <div
-                    className="h-32 rounded-2xl border border-white/10 transition-all duration-300"
+                    className="h-28 rounded-2xl border border-white/10 transition-all duration-300"
                     style={{
                       backgroundColor: currentColor,
                       boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
@@ -564,10 +618,10 @@ export default function App() {
                   />
                 </div>
 
-                <div className="rounded-[22px] bg-white/5 border border-white/10 p-4">
+                <div className="rounded-[22px] bg-white/5 border border-white/10 p-3">
                   <p className="text-slate-400 text-sm mb-2">Actual Shade</p>
                   <div
-                    className="h-32 rounded-2xl border border-white/10 flex items-center justify-center text-slate-400 text-2xl"
+                    className="h-28 rounded-2xl border border-white/10 flex items-center justify-center text-slate-400 text-xl"
                     style={{
                       backgroundColor: showResult ? actualColor : "#1e293b",
                       boxShadow: showResult ? "0 10px 30px rgba(0,0,0,0.3)" : "none",
@@ -597,35 +651,35 @@ export default function App() {
                       </p>
                     </div>
 
-                    <div className="grid grid-cols-1 gap-3 mb-4">
-                      <div className="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">
-                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400 mb-2">
+                    <div className="grid grid-cols-3 gap-2 mb-4">
+                      <div className="rounded-xl border border-white/10 bg-slate-950/40 p-2 text-center">
+                        <p className="text-[10px] uppercase tracking-[0.18em] text-slate-400 mb-1">
                           Hue
                         </p>
-                        <p className="text-xl font-semibold text-white">
+                        <p className="text-sm font-semibold text-white">
                           {result.hueDiff}°
                         </p>
-                        <p className="text-xs text-slate-400 mt-2">off</p>
+                        <p className="text-[10px] text-slate-400 mt-1">off</p>
                       </div>
 
-                      <div className="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">
-                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400 mb-2">
+                      <div className="rounded-xl border border-white/10 bg-slate-950/40 p-2 text-center">
+                        <p className="text-[10px] uppercase tracking-[0.18em] text-slate-400 mb-1">
                           Saturation
                         </p>
-                        <p className="text-xl font-semibold text-white">
+                        <p className="text-sm font-semibold text-white">
                           {result.saturationDiff}%
                         </p>
-                        <p className="text-xs text-slate-400 mt-2">off</p>
+                        <p className="text-[10px] text-slate-400 mt-1">off</p>
                       </div>
 
-                      <div className="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">
-                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400 mb-2">
+                      <div className="rounded-xl border border-white/10 bg-slate-950/40 p-2 text-center">
+                        <p className="text-[10px] uppercase tracking-[0.18em] text-slate-400 mb-1">
                           Lightness
                         </p>
-                        <p className="text-xl font-semibold text-white">
+                        <p className="text-sm font-semibold text-white">
                           {result.lightnessDiff}%
                         </p>
-                        <p className="text-xs text-slate-400 mt-2">off</p>
+                        <p className="text-[10px] text-slate-400 mt-1">off</p>
                       </div>
                     </div>
 
@@ -661,288 +715,224 @@ export default function App() {
                   </button>
                 </div>
               )}
+            </div>
 
-              <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.75),rgba(2,6,23,0.92))] p-4 shadow-inner">
-                <div className="mb-4">
-                  <div className="h-1.5 w-20 rounded-full bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-emerald-400 mb-4" />
-
-                  <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
-                    Color Picker
+            {screen === "end" && (
+              <div className="min-h-screen flex items-center justify-center bg-[radial-gradient(circle_at_top,_#1e293b,_#0f172a_60%)] text-white px-6">
+                <motion.div
+                  initial={{ opacity: 0, y: 25 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="w-full max-w-xl rounded-[32px] border border-white/10 bg-white/10 backdrop-blur-xl shadow-2xl p-10 text-center"
+                >
+                  <p className="text-sm uppercase tracking-[0.35em] text-cyan-300 mb-4">
+                    Game Complete
                   </p>
 
-                  <p className="text-sm text-slate-400 leading-relaxed">
-                    Recreate the target shade as closely as possible.
-                  </p>
-                </div>
+                  <h1 className="text-5xl font-bold mb-4">Final Score</h1>
 
-                <div className="flex justify-center mt-4">
-                  <div
-                    className={`scale-[0.9] origin-center transition ${showResult ? "opacity-60 pointer-events-none" : "opacity-100"
-                      }`}
-                  >
-                    <HslColorPicker
-                      color={color}
-                      onChange={(newColor) => {
-                        if (showResult) return;
-                        setColor(newColor);
-                        setShowResult(false);
-                        setResult(null);
-                      }}
+                  <div className="text-6xl font-bold bg-gradient-to-r from-fuchsia-400 via-cyan-300 to-emerald-300 bg-clip-text text-transparent mb-8">
+                    {score}
+                  </div>
+
+                  <p className="text-xl text-slate-300 mt-4 font-semibold">
+                    {getFinalRank(score)}
+                  </p>
+
+                  <p className="text-slate-300 mb-8">
+                    You scored {score} out of {TOTAL_ROUNDS * 100}.
+                  </p>
+
+                  <div className="mb-6 space-y-4">
+                    <input
+                      type="text"
+                      placeholder="Enter your nickname"
+                      value={username}
+                      onChange={(e) => setUsername(e.target.value)}
+                      className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none"
                     />
+
+                    <button
+                      onClick={handleSaveScore}
+                      disabled={isSaving || scoreSaved}
+                      className="w-full rounded-2xl bg-gradient-to-r from-fuchsia-500 via-cyan-500 to-emerald-400 py-3 font-semibold text-slate-950 hover:scale-[1.02] transition duration-300 disabled:opacity-50"
+                    >
+                      {scoreSaved ? "Score Saved" : isSaving ? "Saving..." : "Save Score"}
+                    </button>
+
+                    {saveMessage && (
+                      <p className="text-sm text-slate-300">{saveMessage}</p>
+                    )}
                   </div>
-                </div>
 
-                <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400 mb-3">
-                    Current Values
-                  </p>
+                  <div className="mt-8 text-left">
+                    <h2 className="text-2xl font-bold mb-4 text-center">Leaderboard</h2>
 
-                  <div className="grid grid-cols-1 gap-3 text-center">
-                    <div className="rounded-xl bg-slate-950/40 border border-white/10 p-3">
-                      <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400 mb-1">
-                        Hue
-                      </p>
-                      <p className="text-white font-semibold">{Math.round(color.h)}°</p>
-                    </div>
+                    <div className="space-y-3">
+                      {leaderboard.length === 0 ? (
+                        <p className="text-slate-300 text-center">No scores yet.</p>
+                      ) : (
+                        leaderboard.map((item, index) => (
+                          <div
+                            key={item._id}
+                            className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 flex items-center justify-between"
+                          >
+                            <div>
+                              <p className="font-semibold text-white">
+                                {getMedal(index)} {item.username}
+                              </p>
+                              <p className="text-sm text-slate-400">
+                                {new Date(item.createdAt).toLocaleDateString()}
+                              </p>
+                            </div>
 
-                    <div className="rounded-xl bg-slate-950/40 border border-white/10 p-3">
-                      <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400 mb-1">
-                        Saturation
-                      </p>
-                      <p className="text-white font-semibold">{Math.round(color.s)}%</p>
-                    </div>
-
-                    <div className="rounded-xl bg-slate-950/40 border border-white/10 p-3">
-                      <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400 mb-1">
-                        Lightness
-                      </p>
-                      <p className="text-white font-semibold">{Math.round(color.l)}%</p>
+                            <p className="text-xl font-bold text-white">{item.totalScore}</p>
+                          </div>
+                        ))
+                      )}
                     </div>
                   </div>
-                </div>
+
+                  <button
+                    onClick={handleStartGame}
+                    className="mt-8 rounded-2xl bg-white text-slate-900 px-6 py-3 font-semibold hover:scale-105 transition duration-300"
+                  >
+                    Play Again
+                  </button>
+                </motion.div>
               </div>
-            </div>
+            )}
 
-          </motion.div>
-        </div>
-      )}
+            <AnimatePresence>
+              {showHowItWorks && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center px-4"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 20, scale: 0.96 }}
+                    transition={{ duration: 0.2 }}
+                    className="w-full max-w-2xl rounded-[28px] border border-white/10 bg-slate-900/95 text-white shadow-2xl p-6 md:p-8"
+                  >
+                    <div className="flex items-start justify-between gap-4 mb-6">
+                      <div>
+                        <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
+                          Guide
+                        </p>
+                        <h2 className="text-3xl font-bold">How It Works</h2>
+                      </div>
 
-      {screen === "end" && (
-        <div className="min-h-screen flex items-center justify-center bg-[radial-gradient(circle_at_top,_#1e293b,_#0f172a_60%)] text-white px-6">
-          <motion.div
-            initial={{ opacity: 0, y: 25 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="w-full max-w-xl rounded-[32px] border border-white/10 bg-white/10 backdrop-blur-xl shadow-2xl p-10 text-center"
-          >
-            <p className="text-sm uppercase tracking-[0.35em] text-cyan-300 mb-4">
-              Game Complete
-            </p>
+                      <button
+                        onClick={() => setShowHowItWorks(false)}
+                        className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 font-semibold hover:bg-white/10 transition"
+                      >
+                        Close
+                      </button>
+                    </div>
 
-            <h1 className="text-5xl font-bold mb-4">Final Score</h1>
+                    <div className="space-y-4 text-slate-300 leading-7">
+                      <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                        <p className="font-semibold text-white mb-2">1. Read the color name</p>
+                        <p>
+                          Each round gives you a hidden target shade by name, like
+                          <span className="text-white font-medium"> Green Gold </span>
+                          or another niche color.
+                        </p>
+                      </div>
 
-            <div className="text-6xl font-bold bg-gradient-to-r from-fuchsia-400 via-cyan-300 to-emerald-300 bg-clip-text text-transparent mb-8">
-              {score}
-            </div>
+                      <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                        <p className="font-semibold text-white mb-2">2. Recreate it</p>
+                        <p>
+                          Use the color picker to adjust
+                          <span className="text-white font-medium"> hue</span>,
+                          <span className="text-white font-medium"> saturation</span>, and
+                          <span className="text-white font-medium"> lightness </span>
+                          until your guess feels right.
+                        </p>
+                      </div>
 
-            <p className="text-xl text-slate-300 mt-4 font-semibold">
-              {getFinalRank(score)}
-            </p>
+                      <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                        <p className="font-semibold text-white mb-2">3. Submit your guess</p>
+                        <p>
+                          After you submit, the real shade is revealed and you get a round
+                          score based on how close your guess was.
+                        </p>
+                      </div>
 
-            <p className="text-slate-300 mb-8">
-              You scored {score} out of {TOTAL_ROUNDS * 100}.
-            </p>
-
-            <div className="mb-6 space-y-4">
-              <input
-                type="text"
-                placeholder="Enter your nickname"
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
-                className="w-full rounded-2xl border border-white/10 bg-white/5 px-4 py-3 text-white placeholder:text-slate-400 outline-none"
-              />
-
-              <button
-                onClick={handleSaveScore}
-                disabled={isSaving || scoreSaved}
-                className="w-full rounded-2xl bg-gradient-to-r from-fuchsia-500 via-cyan-500 to-emerald-400 py-3 font-semibold text-slate-950 hover:scale-[1.02] transition duration-300 disabled:opacity-50"
-              >
-                {scoreSaved ? "Score Saved" : isSaving ? "Saving..." : "Save Score"}
-              </button>
-
-              {saveMessage && (
-                <p className="text-sm text-slate-300">{saveMessage}</p>
+                      <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
+                        <p className="font-semibold text-white mb-2">4. Finish 5 rounds</p>
+                        <p>
+                          Complete all rounds, check your final score, and save your result
+                          to the leaderboard.
+                        </p>
+                      </div>
+                    </div>
+                  </motion.div>
+                </motion.div>
               )}
-            </div>
+            </AnimatePresence>
 
-            <div className="mt-8 text-left">
-              <h2 className="text-2xl font-bold mb-4 text-center">Leaderboard</h2>
-
-              <div className="space-y-3">
-                {leaderboard.length === 0 ? (
-                  <p className="text-slate-300 text-center">No scores yet.</p>
-                ) : (
-                  leaderboard.map((item, index) => (
-                    <div
-                      key={item._id}
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 flex items-center justify-between"
-                    >
+            <AnimatePresence>
+              {showLeaderboard && (
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center px-4"
+                >
+                  <motion.div
+                    initial={{ opacity: 0, y: 20, scale: 0.96 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 20, scale: 0.96 }}
+                    transition={{ duration: 0.2 }}
+                    className="w-full max-w-2xl rounded-[28px] border border-white/10 bg-slate-900/95 text-white shadow-2xl p-6 md:p-8"
+                  >
+                    <div className="flex items-start justify-between gap-4 mb-6">
                       <div>
-                        <p className="font-semibold text-white">
-                          {getMedal(index)} {item.username}
+                        <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
+                          Rankings
                         </p>
-                        <p className="text-sm text-slate-400">
-                          {new Date(item.createdAt).toLocaleDateString()}
-                        </p>
+                        <h2 className="text-3xl font-bold">Leaderboard</h2>
                       </div>
 
-                      <p className="text-xl font-bold text-white">{item.totalScore}</p>
+                      <button
+                        onClick={() => setShowLeaderboard(false)}
+                        className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 font-semibold hover:bg-white/10 transition"
+                      >
+                        Close
+                      </button>
                     </div>
-                  ))
-                )}
-              </div>
-            </div>
 
-            <button
-              onClick={handleStartGame}
-              className="mt-8 rounded-2xl bg-white text-slate-900 px-6 py-3 font-semibold hover:scale-105 transition duration-300"
-            >
-              Play Again
-            </button>
-          </motion.div>
-        </div>
-      )}
+                    <div className="space-y-3 max-h-[420px] overflow-y-auto pr-1">
+                      {leaderboard.length === 0 ? (
+                        <p className="text-slate-300 text-center py-6">No scores yet.</p>
+                      ) : (
+                        leaderboard.map((item, index) => (
+                          <div
+                            key={item._id}
+                            className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 flex items-center justify-between"
+                          >
+                            <div>
+                              <p className="font-semibold text-white">
+                                {getMedal(index)} {item.username}
+                              </p>
+                              <p className="text-sm text-slate-400">
+                                {new Date(item.createdAt).toLocaleString()}
+                              </p>
+                            </div>
 
-      <AnimatePresence>
-        {showHowItWorks && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center px-4"
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.96 }}
-              transition={{ duration: 0.2 }}
-              className="w-full max-w-2xl rounded-[28px] border border-white/10 bg-slate-900/95 text-white shadow-2xl p-6 md:p-8"
-            >
-              <div className="flex items-start justify-between gap-4 mb-6">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
-                    Guide
-                  </p>
-                  <h2 className="text-3xl font-bold">How It Works</h2>
-                </div>
-
-                <button
-                  onClick={() => setShowHowItWorks(false)}
-                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 font-semibold hover:bg-white/10 transition"
-                >
-                  Close
-                </button>
-              </div>
-
-              <div className="space-y-4 text-slate-300 leading-7">
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="font-semibold text-white mb-2">1. Read the color name</p>
-                  <p>
-                    Each round gives you a hidden target shade by name, like
-                    <span className="text-white font-medium"> Green Gold </span>
-                    or another niche color.
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="font-semibold text-white mb-2">2. Recreate it</p>
-                  <p>
-                    Use the color picker to adjust
-                    <span className="text-white font-medium"> hue</span>,
-                    <span className="text-white font-medium"> saturation</span>, and
-                    <span className="text-white font-medium"> lightness </span>
-                    until your guess feels right.
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="font-semibold text-white mb-2">3. Submit your guess</p>
-                  <p>
-                    After you submit, the real shade is revealed and you get a round
-                    score based on how close your guess was.
-                  </p>
-                </div>
-
-                <div className="rounded-2xl border border-white/10 bg-white/5 p-4">
-                  <p className="font-semibold text-white mb-2">4. Finish 5 rounds</p>
-                  <p>
-                    Complete all rounds, check your final score, and save your result
-                    to the leaderboard.
-                  </p>
-                </div>
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
-      <AnimatePresence>
-        {showLeaderboard && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 z-50 bg-slate-950/70 backdrop-blur-sm flex items-center justify-center px-4"
-          >
-            <motion.div
-              initial={{ opacity: 0, y: 20, scale: 0.96 }}
-              animate={{ opacity: 1, y: 0, scale: 1 }}
-              exit={{ opacity: 0, y: 20, scale: 0.96 }}
-              transition={{ duration: 0.2 }}
-              className="w-full max-w-2xl rounded-[28px] border border-white/10 bg-slate-900/95 text-white shadow-2xl p-6 md:p-8"
-            >
-              <div className="flex items-start justify-between gap-4 mb-6">
-                <div>
-                  <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
-                    Rankings
-                  </p>
-                  <h2 className="text-3xl font-bold">Leaderboard</h2>
-                </div>
-
-                <button
-                  onClick={() => setShowLeaderboard(false)}
-                  className="rounded-2xl border border-white/10 bg-white/5 px-4 py-2 font-semibold hover:bg-white/10 transition"
-                >
-                  Close
-                </button>
-              </div>
-
-              <div className="space-y-3 max-h-[420px] overflow-y-auto pr-1">
-                {leaderboard.length === 0 ? (
-                  <p className="text-slate-300 text-center py-6">No scores yet.</p>
-                ) : (
-                  leaderboard.map((item, index) => (
-                    <div
-                      key={item._id}
-                      className="rounded-2xl border border-white/10 bg-white/5 px-4 py-3 flex items-center justify-between"
-                    >
-                      <div>
-                        <p className="font-semibold text-white">
-                          {getMedal(index)} {item.username}
-                        </p>
-                        <p className="text-sm text-slate-400">
-                          {new Date(item.createdAt).toLocaleString()}
-                        </p>
-                      </div>
-
-                      <p className="text-xl font-bold text-white">{item.totalScore}</p>
+                            <p className="text-xl font-bold text-white">{item.totalScore}</p>
+                          </div>
+                        ))
+                      )}
                     </div>
-                  ))
-                )}
-              </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </>
-  );
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </>
+          );
 }
