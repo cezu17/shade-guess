@@ -279,7 +279,7 @@ export default function App() {
             animate={{ opacity: 1, y: 0 }}
             className="w-full max-w-6xl rounded-[32px] border border-white/10 bg-white/10 backdrop-blur-xl shadow-2xl p-5 md:p-6"
           >
-            <div className="grid lg:grid-cols-[380px_1fr] gap-5 items-start">
+            <div className="hidden md:grid lg:grid-cols-[380px_1fr] gap-5 items-start">
               <div className="self-start rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.75),rgba(2,6,23,0.92))] p-4 md:p-5 flex flex-col shadow-inner">
                 <div>
                   <div className="mb-4">
@@ -352,7 +352,7 @@ export default function App() {
               </div>
 
               <div className="flex flex-col">
-              <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4 mb-4">
                   <div>
                     <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
                       Round {round} / {TOTAL_ROUNDS}
@@ -524,6 +524,205 @@ export default function App() {
                 </div>
               </div>
             </div>
+
+            <div className="md:hidden space-y-4">
+              <div className="flex flex-col gap-4">
+                <div>
+                  <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
+                    Round {round} / {TOTAL_ROUNDS}
+                  </p>
+                  <h1 className="text-4xl font-bold break-words">
+                    {targetColor.name}
+                  </h1>
+                  <p className="text-slate-300 mt-2 text-lg">Score: {score}</p>
+                </div>
+
+                <button
+                  onClick={() => setScreen("home")}
+                  className="w-full rounded-2xl border border-white/15 bg-white/5 px-4 py-3 font-semibold hover:bg-white/10 transition"
+                >
+                  Back
+                </button>
+              </div>
+
+              <div className="w-full h-2.5 rounded-full bg-white/10 overflow-hidden">
+                <div
+                  className="h-full rounded-full bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-emerald-400"
+                  style={{ width: `${(round / TOTAL_ROUNDS) * 100}%` }}
+                />
+              </div>
+
+              <div className="grid grid-cols-1 gap-4">
+                <div className="rounded-[22px] bg-white/5 border border-white/10 p-4">
+                  <p className="text-slate-400 text-sm mb-2">Your Guess</p>
+                  <div
+                    className="h-32 rounded-2xl border border-white/10 transition-all duration-300"
+                    style={{
+                      backgroundColor: currentColor,
+                      boxShadow: "0 10px 30px rgba(0,0,0,0.25)",
+                    }}
+                  />
+                </div>
+
+                <div className="rounded-[22px] bg-white/5 border border-white/10 p-4">
+                  <p className="text-slate-400 text-sm mb-2">Actual Shade</p>
+                  <div
+                    className="h-32 rounded-2xl border border-white/10 flex items-center justify-center text-slate-400 text-2xl"
+                    style={{
+                      backgroundColor: showResult ? actualColor : "#1e293b",
+                      boxShadow: showResult ? "0 10px 30px rgba(0,0,0,0.3)" : "none",
+                    }}
+                  >
+                    {!showResult && "Hidden"}
+                  </div>
+                </div>
+              </div>
+
+              {!showResult ? (
+                <button
+                  onClick={handleSubmit}
+                  className="w-full rounded-2xl bg-gradient-to-r from-fuchsia-500 via-cyan-500 to-emerald-400 py-4 font-semibold text-slate-950 shadow-lg text-xl"
+                >
+                  Submit Guess
+                </button>
+              ) : (
+                <div className="space-y-4">
+                  <div className="rounded-[22px] border border-white/10 bg-white/5 p-4">
+                    <div className="mb-4">
+                      <p className="text-2xl font-semibold text-white">
+                        {result.rating}
+                      </p>
+                      <p className="text-slate-300 mt-2">
+                        Round Score: {result.roundScore} / 100
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 gap-3 mb-4">
+                      <div className="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">
+                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400 mb-2">
+                          Hue
+                        </p>
+                        <p className="text-xl font-semibold text-white">
+                          {result.hueDiff}°
+                        </p>
+                        <p className="text-xs text-slate-400 mt-2">off</p>
+                      </div>
+
+                      <div className="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">
+                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400 mb-2">
+                          Saturation
+                        </p>
+                        <p className="text-xl font-semibold text-white">
+                          {result.saturationDiff}%
+                        </p>
+                        <p className="text-xs text-slate-400 mt-2">off</p>
+                      </div>
+
+                      <div className="rounded-xl border border-white/10 bg-slate-950/40 p-3 text-center">
+                        <p className="text-xs uppercase tracking-[0.18em] text-slate-400 mb-2">
+                          Lightness
+                        </p>
+                        <p className="text-xl font-semibold text-white">
+                          {result.lightnessDiff}%
+                        </p>
+                        <p className="text-xs text-slate-400 mt-2">off</p>
+                      </div>
+                    </div>
+
+                    <div className="rounded-[22px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.72),rgba(2,6,23,0.88))] p-4 overflow-hidden relative">
+                      <div className="absolute top-0 left-0 h-1.5 w-full bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-emerald-400 opacity-90" />
+
+                      <div className="pt-2 text-left">
+                        <p className="text-[11px] uppercase tracking-[0.24em] text-cyan-300 mb-3">
+                          Did You Know?
+                        </p>
+
+                        <p className="text-white text-sm leading-7 font-medium">
+                          {targetColor.fact}
+                        </p>
+
+                        <div className="mt-4 rounded-xl border border-white/10 bg-white/5 px-4 py-3">
+                          <p className="text-[11px] uppercase tracking-[0.18em] text-slate-400 mb-1">
+                            Where it appears
+                          </p>
+                          <p className="text-sm text-slate-300 leading-6">
+                            {targetColor.usage}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={handleNextRound}
+                    className="w-full rounded-2xl bg-gradient-to-r from-fuchsia-500 via-cyan-500 to-emerald-400 py-4 font-semibold text-slate-950 shadow-lg"
+                  >
+                    {round === TOTAL_ROUNDS ? "See Final Score" : "Next Round"}
+                  </button>
+                </div>
+              )}
+
+              <div className="rounded-[28px] border border-white/10 bg-[linear-gradient(180deg,rgba(15,23,42,0.75),rgba(2,6,23,0.92))] p-4 shadow-inner">
+                <div className="mb-4">
+                  <div className="h-1.5 w-20 rounded-full bg-gradient-to-r from-fuchsia-500 via-cyan-400 to-emerald-400 mb-4" />
+
+                  <p className="text-sm uppercase tracking-[0.3em] text-cyan-300 mb-2">
+                    Color Picker
+                  </p>
+
+                  <p className="text-sm text-slate-400 leading-relaxed">
+                    Recreate the target shade as closely as possible.
+                  </p>
+                </div>
+
+                <div className="flex justify-center mt-4">
+                  <div
+                    className={`scale-[0.9] origin-center transition ${showResult ? "opacity-60 pointer-events-none" : "opacity-100"
+                      }`}
+                  >
+                    <HslColorPicker
+                      color={color}
+                      onChange={(newColor) => {
+                        if (showResult) return;
+                        setColor(newColor);
+                        setShowResult(false);
+                        setResult(null);
+                      }}
+                    />
+                  </div>
+                </div>
+
+                <div className="mt-6 rounded-2xl border border-white/10 bg-white/5 p-4">
+                  <p className="text-[11px] uppercase tracking-[0.24em] text-slate-400 mb-3">
+                    Current Values
+                  </p>
+
+                  <div className="grid grid-cols-1 gap-3 text-center">
+                    <div className="rounded-xl bg-slate-950/40 border border-white/10 p-3">
+                      <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400 mb-1">
+                        Hue
+                      </p>
+                      <p className="text-white font-semibold">{Math.round(color.h)}°</p>
+                    </div>
+
+                    <div className="rounded-xl bg-slate-950/40 border border-white/10 p-3">
+                      <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400 mb-1">
+                        Saturation
+                      </p>
+                      <p className="text-white font-semibold">{Math.round(color.s)}%</p>
+                    </div>
+
+                    <div className="rounded-xl bg-slate-950/40 border border-white/10 p-3">
+                      <p className="text-[11px] uppercase tracking-[0.14em] text-slate-400 mb-1">
+                        Lightness
+                      </p>
+                      <p className="text-white font-semibold">{Math.round(color.l)}%</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
           </motion.div>
         </div>
       )}
