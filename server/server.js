@@ -11,7 +11,7 @@ app.use(
   cors({
     origin: [
       "http://localhost:5173",
-      "shade-guess.vercel.app",
+      "https://shade-guess.vercel.app",
     ],
   })
 );
